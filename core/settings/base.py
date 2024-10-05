@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
 from pathlib import Path
-
+import firebase_admin
+from firebase_admin import credentials
 import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -44,6 +45,7 @@ DJANGO_APPS = [
 
 CUSTOM_APPS = [
     "apps.common",
+    "apps.notification"
 ]
 
 THIRD_PARTY_APPS = [
@@ -182,3 +184,11 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 # CYPHER CONFIGURATION
 # AES
 AES_KEY = env.str("AES_KEY", "")
+
+
+# firebase settings
+cred = credentials.Certificate(BASE_DIR / "serviceAccountKey.json")
+firebase_admin.initialize_app(cred)
+
+# cors headers settings
+CORS_ALLOW_ALL_ORIGINS = True
