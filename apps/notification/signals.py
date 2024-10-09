@@ -9,7 +9,6 @@ User = get_user_model()
 
 @receiver(post_save, sender=Notification)
 def create_notification(sender, instance, created, **kwargs):
-    print('signal')
     if created:
         if instance.is_for_everyone:
             instance.users.clear()
